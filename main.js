@@ -12,6 +12,10 @@ var g_resources= [{
 	name: "tileset",
 	type: "image",
 	src: "data/tileset.png"
+    }, {
+	name: "maze1",
+	type: "tmx",
+	src: "data/maze1.tmx"
     }];
 
 
