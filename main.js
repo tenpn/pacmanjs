@@ -30,7 +30,7 @@ var jsApp	=
 	{
 		
 		// init the video
-		if (!me.video.init('jsapp', 640, 480, false, 1.0))
+		if (!me.video.init('jsapp', 448, 448, false, 1.0))
 		{
 			alert("Sorry but your browser does not support html 5 canvas.");
          return;
@@ -72,7 +72,7 @@ var PlayScreen = me.ScreenObject.extend(
 
    onResetEvent: function()
 	{	
-      // stuff to reset on state change
+	    me.levelDirector.loadLevel("maze1");
 	},
 	
 	
