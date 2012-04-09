@@ -1,10 +1,19 @@
-/**
-  * pacman implemnted in melonjs
-  */
-
+/*!
+ * 
+ *   melonJS
+ *   http://www.melonjs.org
+ *		
+ *   Step by step game creation tutorial
+ *
+ **/
 
 // game resources
-var g_resources= [];
+var g_resources= [{
+	name: "tileset",
+	type: "image",
+	src: "data/tileset.png"
+    }];
+
 
 var jsApp	= 
 {	
@@ -33,7 +42,7 @@ var jsApp	=
 		me.loader.preload(g_resources);
 
 		// load everything & display a loading screen
-		me.state.change(me.state.PLAY);
+		me.state.change(me.state.LOADING);
 	},
 	
 	
@@ -46,30 +55,34 @@ var jsApp	=
 	{
 		// set the "Play/Ingame" Screen Object
 		me.state.set(me.state.PLAY, new PlayScreen());
-
-		me.state.transition("fade", "#FFFFFF", 250);
-      	
-		me.input.bindKey(me.input.KEY.LEFT, "left");
-		me.input.bindKey(me.input.KEY.RIGHT, "right");
-		me.input.bindKey(me.input.KEY.UP, "up");
-		me.input.bindKey(me.input.KEY.DOWN, "down");
-
-		// start the game 
+      
+      // start the game 
 		me.state.change(me.state.PLAY);
 	}
 
 }; // jsApp
 
 /* the in game stuff*/
-var PlayScreen = me.ScreenObject.extend({
-	onResetEvent: function() {
-	    
-	},
+var PlayScreen = me.ScreenObject.extend(
+{
 
-	onDestroyEvent: function() {
-	    
-	}
-    });
+   onResetEvent: function()
+	{	
+      // stuff to reset on state change
+	},
+	
+	
+	/* ---
+	
+		 action to perform when game is finished (state change)
+		
+		---	*/
+	onDestroyEvent: function()
+	{
+	
+   }
+
+});
 
 
 //bootstrap :)
