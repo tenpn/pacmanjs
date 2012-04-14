@@ -16,6 +16,10 @@ var g_resources= [{
 	name: "maze1",
 	type: "tmx",
 	src: "data/maze1.tmx"
+    }, {
+        name: "pacman",
+        type: "image",
+        src: "data/pacman.png"
     }];
 
 var PlayerEntity = me.ObjectEntity.extend({

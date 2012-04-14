@@ -24,7 +24,7 @@
  <objectgroup name="Entities" width="28" height="28">
   <object name="mainPlayer" x="198" y="264">
    <properties>
-    <property name="image" value="tileset"/>
+    <property name="image" value="pacman"/>
     <property name="spriteheight" value="16"/>
     <property name="spritewidth" value="16"/>
    </properties>
