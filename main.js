@@ -26,6 +26,7 @@ var PlayerEntity = me.ObjectEntity.extend({
     init: function(x, y, settings) {
         this.parent(x, y, settings);
         this.gravity = 0;
+        this.updateColRect(1, 14, 1, 14);
     },
 
     update: function() {
@@ -93,6 +94,8 @@ var jsApp	=
 
 		// load everything & display a loading screen
 		me.state.change(me.state.LOADING);
+
+            me.debug.renderHitBox = true;
 	},
 	
 	
