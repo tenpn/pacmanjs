@@ -18,6 +18,20 @@ var g_resources= [{
 	src: "data/maze1.tmx"
     }];
 
+var PlayerEntity = me.ObjectEntity.extend({
+    init: function(x, y, settings) {
+        this.parent(x, y, settings);
+    },
+
+    update: function() {
+        if (me.input.isKeyPressed('left')) {
+        } else if (me.input.isKeyPressed('right')) {
+        } 
+
+        return false;
+    },
+
+})
 
 var jsApp	= 
 {	
@@ -57,11 +71,18 @@ var jsApp	=
 		---										*/
 	loaded: function ()
 	{
-		// set the "Play/Ingame" Screen Object
-		me.state.set(me.state.PLAY, new PlayScreen());
+	    // set the "Play/Ingame" Screen Object
+	    me.state.set(me.state.PLAY, new PlayScreen());
       
-      // start the game 
-		me.state.change(me.state.PLAY);
+            me.entityPool.add("mainPlayer", PlayerEntity);
+
+            me.input.bindKey(me.input.KEY.LEFT, "left");
+            me.input.bindKey(me.input.KEY.RIGHT, "right");
+            me.input.bindKey(me.input.KEY.UP, "up");
+            me.input.bindKey(me.input.KEY.DOWN, "down");
+            
+            // start the game 
+	    me.state.change(me.state.PLAY);
 	}
 
 }; // jsApp
