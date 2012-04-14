@@ -29,11 +29,27 @@ var PlayerEntity = me.ObjectEntity.extend({
     },
 
     update: function() {
+        var nextOrientation = 0;
+
         if (me.input.isKeyPressed('left')) {
             this.vel.x = -5;
+            nextOrientation = 1;
         } else if (me.input.isKeyPressed('right')) {
             this.vel.x = 5;
-        } 
+            nextOrientation = 1;
+        } else if (me.input.isKeyPressed('up')) {
+            this.vel.y = -5;
+            nextOrientation = 2;
+        } else if (me.input.isKeyPressed('down')) {
+            this.vel.y = 5;
+            nextOrientation = 2;
+        }
+
+        if (nextOrientation == 2) {
+            this.vel.x = 0;
+        } else if (nextOrientation == 1) {
+            this.vel.y = 0;
+        }
 
         this.updateMovement();
 
