@@ -30,18 +30,19 @@ var PlayerEntity = me.ObjectEntity.extend({
 
     update: function() {
         var nextOrientation = 0;
+        var pacmanSpeed = 3;
 
         if (me.input.isKeyPressed('left')) {
-            this.vel.x = -5;
+            this.vel.x = -pacmanSpeed;
             nextOrientation = 1;
         } else if (me.input.isKeyPressed('right')) {
-            this.vel.x = 5;
+            this.vel.x = pacmanSpeed;
             nextOrientation = 1;
         } else if (me.input.isKeyPressed('up')) {
-            this.vel.y = -5;
+            this.vel.y = -pacmanSpeed;
             nextOrientation = 2;
         } else if (me.input.isKeyPressed('down')) {
-            this.vel.y = 5;
+            this.vel.y = pacmanSpeed;
             nextOrientation = 2;
         }
 
