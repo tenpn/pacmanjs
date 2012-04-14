@@ -25,12 +25,23 @@ var g_resources= [{
 var PlayerEntity = me.ObjectEntity.extend({
     init: function(x, y, settings) {
         this.parent(x, y, settings);
+        this.gravity = 0;
     },
 
     update: function() {
         if (me.input.isKeyPressed('left')) {
+            this.vel.x = -5;
         } else if (me.input.isKeyPressed('right')) {
+            this.vel.x = 5;
         } 
+
+        this.updateMovement();
+
+        if (this.vel.x != 0 || this.vel.y != 0)
+        {
+            this.parent(this);
+            return true;
+        }
 
         return false;
     },
