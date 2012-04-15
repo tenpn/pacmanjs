@@ -23,34 +23,53 @@ var g_resources= [{
     }];
 
 var PlayerEntity = me.ObjectEntity.extend({
+    
     init: function(x, y, settings) {
         this.parent(x, y, settings);
         this.gravity = 0;
         this.updateColRect(1, 14, 1, 14);
+
+        this.requestedMovement = {};
+        this.requestTimeout = 0.0;
+
+        this.movements = { 
+            Up : { command: 'up', velocity: new me.Vector2d(0,-1) },
+            Down : { command: 'down', velocity: new me.Vector2d(0,1) },
+            Left : { command: 'left', velocity: new me.Vector2d(-1,0) },
+            Right : { command: 'right', velocity: new me.Vector2d(1,0) },
+        };
+        console.log(this.movements);
+
     },
 
     update: function() {
-        var nextOrientation = 0;
-        var pacmanSpeed = 3;
 
-        if (me.input.isKeyPressed('left')) {
-            this.vel.x = -pacmanSpeed;
-            nextOrientation = 1;
-        } else if (me.input.isKeyPressed('right')) {
-            this.vel.x = pacmanSpeed;
-            nextOrientation = 1;
-        } else if (me.input.isKeyPressed('up')) {
-            this.vel.y = -pacmanSpeed;
-            nextOrientation = 2;
-        } else if (me.input.isKeyPressed('down')) {
-            this.vel.y = pacmanSpeed;
-            nextOrientation = 2;
+        var currentMovement = null;
+
+        if (this.vel.x < 0) {
+            currentMovement = this.movements.Left;
+        } else if (this.vel.x > 0) {
+            currentMovement = this.movements.Right;
+        } else if (this.vel.y < 0) {
+            currentMovement = this.movements.Up;
+        } else if (this.vel.y > 0) {
+            currentMovement = this.movements.Down;
         }
 
-        if (nextOrientation == 2) {
-            this.vel.x = 0;
-        } else if (nextOrientation == 1) {
-            this.vel.y = 0;
+        var newMovementRequest = null;
+        
+        for(var movementCmd in this.movements) {
+            if (me.input.isKeyPressed(this.movements[movementCmd].command)) {
+                newMovementRequest = movementCmd;
+            }
+        }
+
+        var pacmanSpeed = 3;
+
+        if (newMovementRequest != null) {
+            this.vel = this.movements[newMovementRequest].velocity.clone();
+            this.vel.x *= pacmanSpeed;
+            this.vel.y *= pacmanSpeed;
         }
 
         this.updateMovement();
