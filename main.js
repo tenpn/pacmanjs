@@ -29,6 +29,8 @@ var g_resources= [{
 var PillEntity = me.CollectableEntity.extend({
     
     onCollision: function() {
+        this.colidable = false;
+        me.game.remove(this);
     }
 
 });
@@ -104,6 +106,8 @@ var PlayerEntity = me.ObjectEntity.extend({
             this.vel = prevVel;
             this.updateMovement();
         }
+
+        var entityCollisionRes = me.game.collide(this);
 
         if (this.vel.x != 0 || this.vel.y != 0)
         {
