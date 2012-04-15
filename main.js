@@ -27,34 +27,22 @@ var PlayerEntity = me.ObjectEntity.extend({
     init: function(x, y, settings) {
         this.parent(x, y, settings);
         this.gravity = 0;
-        this.updateColRect(1, 14, 1, 14);
+        this.updateColRect(2, 12, 2, 12);
 
-        this.requestedMovement = {};
+        this.requestedMovement = null;
         this.requestTimeout = 0.0;
 
-        this.movements = { 
+        this.movements = Object.freeze({ 
             Up : { command: 'up', velocity: new me.Vector2d(0,-1) },
             Down : { command: 'down', velocity: new me.Vector2d(0,1) },
             Left : { command: 'left', velocity: new me.Vector2d(-1,0) },
             Right : { command: 'right', velocity: new me.Vector2d(1,0) },
-        };
+        });
         console.log(this.movements);
 
     },
 
     update: function() {
-
-        var currentMovement = null;
-
-        if (this.vel.x < 0) {
-            currentMovement = this.movements.Left;
-        } else if (this.vel.x > 0) {
-            currentMovement = this.movements.Right;
-        } else if (this.vel.y < 0) {
-            currentMovement = this.movements.Up;
-        } else if (this.vel.y > 0) {
-            currentMovement = this.movements.Down;
-        }
 
         var newMovementRequest = null;
         
@@ -64,15 +52,47 @@ var PlayerEntity = me.ObjectEntity.extend({
             }
         }
 
+        if (newMovementRequest == null && this.requestTimeout > 0) {
+            console.log(me.timer.tick);
+            this.requestTimeout -= me.timer.tick;
+
+            var currentMovement = null;
+            
+            if (this.vel.x < 0) {
+                currentMovement = this.movements.Left;
+            } else if (this.vel.x > 0) {
+                currentMovement = this.movements.Right;
+            } else if (this.vel.y < 0) {
+                currentMovement = this.movements.Up;
+            } else if (this.vel.y > 0) {
+                currentMovement = this.movements.Down;
+            }
+            
+            if (currentMovement != this.movements[this.requestedMovement]) {
+                newMovementRequest = this.requestedMovement;
+            }
+        }
+
         var pacmanSpeed = 3;
+        var prevVel = this.vel.clone();
 
         if (newMovementRequest != null) {
             this.vel = this.movements[newMovementRequest].velocity.clone();
             this.vel.x *= pacmanSpeed;
             this.vel.y *= pacmanSpeed;
-        }
+            this.requestedMovement = newMovementRequest;
+            this.requestTimeout = 500;
+        } 
 
-        this.updateMovement();
+        var res = this.updateMovement();
+
+        if ((res.x != 0 || res.y != 0) && (prevVel.x != 0 || prevVel.y != 0)) {
+            // movement didn't work - hit a wall?
+            // restore prevous vel
+
+            this.vel = prevVel;
+            this.updateMovement();
+        }
 
         if (this.vel.x != 0 || this.vel.y != 0)
         {
