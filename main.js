@@ -20,7 +20,18 @@ var g_resources= [{
         name: "pacman",
         type: "image",
         src: "data/pacman.png"
+    }, {
+        name: "pill",
+        type: "image",
+        src: "data/pills.png"
     }];
+
+var PillEntity = me.CollectableEntity.extend({
+    
+    onCollision: function() {
+    }
+
+});
 
 var PlayerEntity = me.ObjectEntity.extend({
     
@@ -134,7 +145,7 @@ var jsApp	=
 		// load everything & display a loading screen
 		me.state.change(me.state.LOADING);
 
-            me.debug.renderHitBox = true;
+            //me.debug.renderHitBox = true;
 	},
 	
 	
@@ -149,6 +160,7 @@ var jsApp	=
 	    me.state.set(me.state.PLAY, new PlayScreen());
       
             me.entityPool.add("mainPlayer", PlayerEntity);
+            me.entityPool.add("Pill", PillEntity);
 
             me.input.bindKey(me.input.KEY.LEFT, "left");
             me.input.bindKey(me.input.KEY.RIGHT, "right");

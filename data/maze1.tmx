@@ -22,10 +22,46 @@
   </data>
  </layer>
  <objectgroup name="Entities" width="28" height="28">
-  <object name="mainPlayer" x="150" y="281">
+  <object name="mainPlayer" x="149" y="274" width="11" height="13">
    <properties>
     <property name="image" value="pacman"/>
     <property name="spriteheight" value="16"/>
+    <property name="spritewidth" value="16"/>
+   </properties>
+  </object>
+  <object name="Pill" x="193" y="335" width="15" height="17">
+   <properties>
+    <property name="image" value="pill"/>
+    <property name="spritewidth" value="16"/>
+   </properties>
+  </object>
+  <object name="Pill" x="177" y="336" width="15" height="17">
+   <properties>
+    <property name="image" value="pill"/>
+    <property name="spritewidth" value="16"/>
+   </properties>
+  </object>
+  <object name="Pill" x="161" y="336" width="15" height="17">
+   <properties>
+    <property name="image" value="pill"/>
+    <property name="spritewidth" value="16"/>
+   </properties>
+  </object>
+  <object name="Pill" x="145" y="337" width="15" height="17">
+   <properties>
+    <property name="image" value="pill"/>
+    <property name="spritewidth" value="16"/>
+   </properties>
+  </object>
+  <object name="Pill" x="128" y="336" width="15" height="17">
+   <properties>
+    <property name="image" value="pill"/>
+    <property name="spritewidth" value="16"/>
+   </properties>
+  </object>
+  <object name="Pill" x="114" y="336" width="15" height="17">
+   <properties>
+    <property name="image" value="pill"/>
     <property name="spritewidth" value="16"/>
    </properties>
   </object>
