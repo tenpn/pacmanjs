@@ -31,6 +31,7 @@ var PillEntity = me.CollectableEntity.extend({
     onCollision: function() {
         this.colidable = false;
         me.game.remove(this);
+        me.templatePill = this;
     }
 
 });
@@ -38,6 +39,7 @@ var PillEntity = me.CollectableEntity.extend({
 var PlayerEntity = me.ObjectEntity.extend({
     
     init: function(x, y, settings) {
+        console.log(settings);
         this.parent(x, y, settings);
         this.gravity = 0;
         this.updateColRect(2, 12, 2, 12);
@@ -52,6 +54,8 @@ var PlayerEntity = me.ObjectEntity.extend({
             Right : { command: 'right', velocity: new me.Vector2d(1,0) },
         });
         console.log(this.movements);
+
+        console.log(me);
 
     },
 
@@ -181,11 +185,29 @@ var jsApp	=
 var PlayScreen = me.ScreenObject.extend(
 {
 
-   onResetEvent: function()
-	{	
-	    me.levelDirector.loadLevel("maze1");
-	},
-	
+    onResetEvent: function()
+    {	
+	me.levelDirector.loadLevel("maze1");
+        
+        for(var columnIndex in me.game.collisionMap.layerData) {
+            for(var rowIndex in me.game.collisionMap.layerData[columnIndex]) {
+ 
+                var tile = me.game.collisionMap.layerData[columnIndex][rowIndex];
+               
+                if (tile == null || tile.tileId != 13) {
+                    continue;
+                }
+                
+                // create coin innit
+		console.log("new pill at " + columnIndex + ", " + rowIndex);
+                var newPill = new PillEntity(columnIndex, rowIndex, { image: "pill", spritewidth: "16" });
+                me.game.add(newPill, 5);
+		me.game.sort();
+            }
+        }
+        
+    },
+    
 	
 	/* ---
 	
